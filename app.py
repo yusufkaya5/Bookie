@@ -112,7 +112,11 @@ def logout():
 def dashboard():
     created_clubs = Club.query.filter_by(creator_id=current_user.id).all()
     joined_club_ids = [m.club_id for m in ClubMember.query.filter_by(user_id=current_user.id).all()]
-    joined_clubs = Club.query.filter(Club.id.in_(joined_club_ids)).all()
+    joined_clubs = Club.query.filter(Club.id.in_(joined_club_ids)).filter(Club.creator_id != current_user.id).all()
+
+   # created_clubs = Club.query.filter_by(creator_id=current_user.id).all()
+   # joined_club_ids = [m.club_id for m in ClubMember.query.filter_by(user_id=current_user.id).all()]
+   # joined_clubs = Club.query.filter(Club.id.in_(joined_club_ids)).all()
     return render_template('dashboard.html', created_clubs=created_clubs, joined_clubs=joined_clubs)
 
 @app.route('/create_club', methods=['GET', 'POST'])
