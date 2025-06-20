@@ -219,4 +219,5 @@ def delete_comment(comment_id):
     return redirect(request.referrer or url_for('dashboard'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
+    #app.run(debug=True)
