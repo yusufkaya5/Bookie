@@ -1,28 +1,47 @@
-<!-- dashboard.html -->
-{% extends 'layout.html' %}
+{% extends "layout.html" %}
 {% block content %}
-<h2>Welcome, {{ current_user.username }}!</h2>
+<h2>Dashboard</h2>
+<a class="btn btn-primary me-2" href="{{ url_for('create_club') }}">Create Club</a>
+<a class="btn btn-secondary" href="{{ url_for('join_club') }}">Join Club</a>
 <hr>
-<h4>Your Clubs</h4>
-<div class="row">
-    {% for club in created_clubs + joined_clubs %}
-    <div class="col-md-4">
-        <div class="card mb-4">
-            {% if club.image %}
-            <img src="{{ url_for('uploaded_file', filename=club.image) }}" class="card-img-top" alt="Club image">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ club.name }}</h5>
-                <p class="card-text">Code: {{ club.code }}</p>
-                <a href="{{ url_for('club_detail', club_id=club.id) }}" class="btn btn-outline-primary">Enter Club</a>
-                {% if club.creator_id == current_user.id %}
-                    <a href="{{ url_for('delete_club', club_id=club.id) }}" class="btn btn-outline-danger mt-2">Delete Club</a>
-                {% endif %}
-            </div>
-        </div>
+
+<h4>My Clubs</h4>
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+  {% for club in created_clubs %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{ url_for('uploaded_file', filename=club.image) if club.image else url_for('static', filename='logo.png') }}"
+     class="card-img-top" alt="Club Image">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ url_for('club_detail', club_id=club.id) }}">{{ club.name }}</a>
+        </h5>
+        {% if club.is_private %}
+          <span class="badge bg-warning text-dark">Private 🔒</span>
+        {% endif %}
+      </div>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
+</div> 
+
+<h4>Joined Clubs</h4>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for club in joined_clubs %}
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{ url_for('uploaded_file', filename=club.image) if club.image else url_for('static', filename='logo.png') }}"
+     class="card-img-top" alt="Club Image">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ url_for('club_detail', club_id=club.id) }}">{{ club.name }}</a>
+        </h5>
+        {% if club.is_private %}
+          <span class="badge bg-warning text-dark">Private 🔒</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-<a href="{{ url_for('create_club') }}" class="btn btn-success">Create a New Club</a>
-<a href="{{ url_for('join_club') }}" class="btn btn-secondary">Join a New Club</a>
 {% endblock %}

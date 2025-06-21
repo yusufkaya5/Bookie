@@ -1,6 +1,6 @@
 /* styles.css */
 body {
-    background-color: #f9f9f9;
+    background-color: #fcf9f9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -14,20 +14,64 @@ h2, h4 {
     font-size: 1.5rem;
 }
 
+
 .card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
+  max-width: 260px;
+  margin: auto;
 }
+
+
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card.h-100 {
+  height: auto !important;
+}
+
+
 
 .card-img-top {
-    height: 200px;
-    object-fit: cover;
+  height: 160px !important;
+  object-fit: cover;
+  width: 100%;
 }
 
+
+
 .card-body {
-    padding: 1rem;
+  padding: 0.75rem;
+  text-align: center;
 }
+
+
+.card-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.card a:hover {
+    color: #0d6efd;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
 
 .btn-primary, .btn-outline-primary, .btn-success, .btn-secondary {
     border-radius: 20px;
@@ -54,7 +98,7 @@ form .form-control {
 
 img.img-fluid {
     border-radius: 16px;
-    border: 2px solid #ddd;
+    border: 2px solid #fcf9f9;
     padding: 5px;
-    background-color: #fff;
+    background-color: #fcf9f9;
 }
