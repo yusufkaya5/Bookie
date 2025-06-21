@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Join Requests{% endblock %}
+{% block content %}
+<h2>Join Requests for <strong>{{ club.name }}</strong> {% if club.is_private %}🔒{% endif %}</h2>
+<p class="text-muted">Manage incoming requests to join this private club.</p>
+
+{% if requests %}
+<table class="table table-hover align-middle">
+  <thead class="table-light">
+    <tr><th>User</th><th>Email</th><th>Request Date</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for req in requests %}
+      <tr>
+        <td><strong>{{ req.user.username }}</strong></td>
+        <td>{{ req.user.email }}</td>
+        <td>{{ req.timestamp.strftime('%Y-%m-%d %H:%M') if req.timestamp else 'N/A' }}</td>
+        <td>
+          <a href="{{ url_for('approve_request', request_id=req.id) }}" class="btn btn-success btn-sm">✅ Approve</a>
+          <a href="{{ url_for('reject_request', request_id=req.id) }}" class="btn btn-outline-danger btn-sm">❌ Reject</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">No pending join requests at the moment.</div>
+{% endif %}
+
+<a href="{{ url_for('club_detail', club_id=club.id) }}" class="btn btn-secondary mt-3">← Back to Club</a>
+{% endblock %}

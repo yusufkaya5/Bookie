@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<a class="btn btn-primary me-2" href="{{ url_for('create_club') }}">Create Club</a>
+<a class="btn btn-secondary" href="{{ url_for('join_club') }}">Join Club</a>
+<hr>
+<h4>My Clubs</h4>
+<ul class="list-group mb-4">
+  {% for club in created_clubs %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <a href="{{ url_for('club_detail', club_id=club.id) }}">{{ club.name }}</a>
+      {% if club.is_private %}<span class="badge bg-warning text-dark">Private 🔒</span>{% endif %}
+    </li>
+  {% endfor %}
+</ul>
+<h4>Joined Clubs</h4>
+<ul class="list-group">
+  {% for club in joined_clubs %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <a href="{{ url_for('club_detail', club_id=club.id) }}">{{ club.name }}</a>
+      {% if club.is_private %}<span class="badge bg-warning text-dark">Private 🔒</span>{% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

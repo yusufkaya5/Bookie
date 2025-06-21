@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Manage Roles{% endblock %}
+{% block content %}
+<h2>Manage Roles - {{ club.name }}</h2>
+<form method="POST">
+  <table class="table">
+    <thead>
+      <tr><th>Username</th><th>Role</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for member in members %}
+        <tr>
+          <td>
+            <a href="{{ url_for('view_profile', user_id=member.user.id) }}">{{ member.user.username }}</a>
+            {% if member.user.id == club.creator_id %}<span class="badge bg-info ms-2">Creator 👑</span>{% endif %}
+          </td>
+          <td>
+            <select name="role_{{ member.user_id }}" class="form-select">
+              <option value="member" {% if member.role == 'member' %}selected{% endif %}>Member</option>
+              <option value="moderator" {% if member.role == 'moderator' %}selected{% endif %}>Moderator</option>
+              {% if current_user.is_admin or current_user.id == club.creator_id %}
+              <option value="president" {% if member.role == 'president' %}selected{% endif %}>President</option>
+              {% endif %}
+            </select>
+          </td>
+          <td>
+            {% if (current_user.is_admin or current_user.id == club.creator_id) and member.user.id != club.creator_id %}
+              <a href="{{ url_for('remove_from_club', club_id=club.id, user_id=member.user_id) }}" class="btn btn-sm btn-outline-danger">Remove</a>
+            {% else %}
+              <span class="text-muted">-</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary">Update Roles</button>
+</form>
+{% endblock %}

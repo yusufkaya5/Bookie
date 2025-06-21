@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Create Club</h2>
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label>Club Name</label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Description</label>
+    <textarea name="description" class="form-control" placeholder="Description (optional)"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label>Rules</label>
+    <textarea name="rules" class="form-control" placeholder="Rules (optional)"></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label>Image</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label><input type="checkbox" name="is_private"> Private</label>
+  </div>
+
+  <button type="submit" class="btn btn-success">Create Club</button>
+</form>
+{% endblock %}

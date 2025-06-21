@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<h4>Users</h4>
+<table class="table">
+  <thead><tr><th>Username</th><th>Email</th><th>Verified</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td><a href="{{ url_for('view_profile', user_id=user.id) }}">{{ user.username }}</a></td>
+        <td>{{ user.email }}</td>
+        <td>{{ '✅' if user.is_verified else '⏳' }}</td>
+        <td>
+          {% if not user.is_admin %}
+            <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-danger btn-sm">Delete</a>
+            <ul class="mt-1">
+              {% for membership in user.memberships %}
+                <li style="font-size: 0.9em;">
+                  <a href="{{ url_for('club_detail', club_id=membership.club.id) }}">{{ membership.club.name }}</a>
+                  <a href="{{ url_for('remove_from_club', club_id=membership.club.id, user_id=user.id) }}" class="btn btn-outline-warning btn-sm">Remove</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <span class="text-muted">Admin</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h4>Clubs</h4>
+<table class="table">
+  <thead><tr><th>Name</th><th>Code</th><th>Creator</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for club in clubs %}
+      <tr>
+        <td><a href="{{ url_for('club_detail', club_id=club.id) }}">{{ club.name }}</a> {% if club.is_private %}🔒{% endif %}</td>
+        <td>{{ club.code }}</td>
+        <td><a href="{{ url_for('view_profile', user_id=club.creator.id) }}">{{ club.creator.username }}</a></td>
+        <td><a href="{{ url_for('delete_club_admin', club_id=club.id) }}" class="btn btn-danger btn-sm">Delete</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

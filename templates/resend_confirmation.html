@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}Resend Confirmation{% endblock %}
+{% block content %}
+<h2>Resend Confirmation Email</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label for="email" class="form-label">Enter your email address:</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Resend Email</button>
+</form>
+{% endblock %}

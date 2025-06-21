@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">🔔 Notifications</h2>
+
+  {% if notifications %}
+    <ul class="list-group">
+      {% for notif in notifications %}
+        <li class="list-group-item d-flex justify-content-between align-items-center {% if not notif.is_read %}fw-bold{% endif %}">
+          {{ notif.message|safe }}
+          <span class="text-muted small">{{ notif.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info">No notifications found.</div>
+  {% endif %}
+</div>
+{% endblock %}

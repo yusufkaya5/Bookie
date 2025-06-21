@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Join Club{% endblock %}
+{% block content %}
+<h2>Join Club</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Club Code</label>
+    <input type="text" name="code" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Join</button>
+</form>
+{% endblock %}

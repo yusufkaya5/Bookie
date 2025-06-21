@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Edit Club{% endblock %}
+{% block content %}
+<h2>Edit {{ club.name }}</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Description</label>
+    <textarea name="description" class="form-control" rows="3">{{ club.description }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label>Rules</label>
+    <textarea name="rules" class="form-control" rows="3">{{ club.rules }}</textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}
